@@ -22,11 +22,11 @@ namespace FileTransferHost
             Port = port;
         }
     }
-    public class ReceiveFile
+    class ReceiveFile
     {
         public static void Receive(string[] args)
         {
-            Console.WriteLine("Starting file receiver\n");
+            Console.WriteLine("Starting file receiver");
 
             Computer[] computers = {
                 new Computer("RGBDesk", "172.20.10.10", 59666),
@@ -52,14 +52,9 @@ namespace FileTransferHost
 
             Console.WriteLine("Receiving file");
 
-            // receive file name and type
-            byte[] fileNameBuffer = new byte[1024];
-            int bytesRead = stream.Read(fileNameBuffer, 0, fileNameBuffer.Length);
-            string fileName = Encoding.UTF8.GetString(fileNameBuffer, 0, bytesRead).TrimEnd('\0');
-
-            // receive the file
-            using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            using (FileStream fileStream = new FileStream("received_file.txt", FileMode.Create, FileAccess.Write))
             {
+                int bytesRead;
                 byte[] buffer = new byte[1024];
 
                 while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
