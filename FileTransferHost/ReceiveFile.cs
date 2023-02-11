@@ -42,7 +42,7 @@ namespace FileTransferHost
             int selectedComputer = int.Parse(Console.ReadLine()) - 1;
             Computer chosenComputer = computers[selectedComputer];
 
-            TcpListener listener = new TcpListener(IPAddress.Parse(chosenComputer.IP), chosenComputer.Port);
+            TcpListener listener = new TcpListener(IPAddress.Any, chosenComputer.Port);
             listener.Start();
 
             Console.WriteLine("\nWaiting for file");
@@ -50,12 +50,14 @@ namespace FileTransferHost
             TcpClient client = listener.AcceptTcpClient();
             NetworkStream stream = client.GetStream();
 
-            Console.WriteLine("Receiving file");
+            Console.WriteLine("Receiving file: ");
 
             byte[] filenameBuffer = new byte[1024];
             int bytesRead = stream.Read(filenameBuffer, 0, filenameBuffer.Length);
-            string fileName = Encoding.ASCII.GetString(filenameBuffer, 0, bytesRead).TrimEnd('\0').Trim();
+            string fileName = Encoding.ASCII.GetString(filenameBuffer, 0, bytesRead);
+            fileName = (fileName.Split('\r'))[0];
 
+            Console.WriteLine("\"" + fileName + "\"");
 
             using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
             {
