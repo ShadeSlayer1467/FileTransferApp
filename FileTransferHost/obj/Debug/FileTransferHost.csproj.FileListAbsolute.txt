@@ -1,8 +1,0 @@
-C:\Users\matth\Desktop\FileTransferHost\FileTransferHost\obj\Debug\FileTransferHost.csproj.AssemblyReference.cache
-C:\Users\matth\Desktop\FileTransferHost\FileTransferHost\obj\Debug\FileTransferHost.csproj.SuggestedBindingRedirects.cache
-C:\Users\matth\Desktop\FileTransferHost\FileTransferHost\obj\Debug\FileTransferHost.csproj.CoreCompileInputs.cache
-C:\Users\matth\Desktop\FileTransferHost\FileTransferHost\bin\Debug\FileTransferHost.exe.config
-C:\Users\matth\Desktop\FileTransferHost\FileTransferHost\bin\Debug\FileTransferHost.exe
-C:\Users\matth\Desktop\FileTransferHost\FileTransferHost\bin\Debug\FileTransferHost.pdb
-C:\Users\matth\Desktop\FileTransferHost\FileTransferHost\obj\Debug\FileTransferHost.exe
-C:\Users\matth\Desktop\FileTransferHost\FileTransferHost\obj\Debug\FileTransferHost.pdb
