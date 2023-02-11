@@ -1,0 +1,15 @@
+Write a C# "RecieveFile" class that has two "Computer" class type objects: 
+1:(Name: RGBDesk, IP: 172.20.10.10, Port:69666) 
+2:(Name: OmenLap, IP: 172.20.10.6, Port:69666)
+
+This "RecieveFile" class will prompt the user in the command line to choose from the "Computer" objects to recieve files from. Then it will do the necassary things to recieve a file from that computer over an ipad WiFi hotspot
+
+
+
+
+Now write me a C# "SendFile" class with the same "Computer" Objects as before that prompts the user for which computer to SEND files to and then performs the necessary procedures to send a file to that computer.
+
+
+
+
+Now write a "Main" function to put these together as if they are in one solution and both computer have the program and one needs to choose to recieve, and the other needs to choose to send
