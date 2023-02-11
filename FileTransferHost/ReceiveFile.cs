@@ -26,7 +26,7 @@ namespace FileTransferHost
     {
         public static void Receive(string[] args)
         {
-            Console.WriteLine("Starting file receiver");
+            Console.WriteLine("Starting file receiver\n");
 
             Computer[] computers = {
                 new Computer("RGBDesk", "172.20.10.10", 59666),
@@ -45,16 +45,21 @@ namespace FileTransferHost
             TcpListener listener = new TcpListener(IPAddress.Parse(chosenComputer.IP), chosenComputer.Port);
             listener.Start();
 
-            Console.WriteLine("Waiting for file");
+            Console.WriteLine("\nWaiting for file");
 
             TcpClient client = listener.AcceptTcpClient();
             NetworkStream stream = client.GetStream();
 
             Console.WriteLine("Receiving file");
 
-            using (FileStream fileStream = new FileStream("received_file.txt", FileMode.Create, FileAccess.Write))
+            byte[] filenameBuffer = new byte[1024];
+            int bytesRead = stream.Read(filenameBuffer, 0, filenameBuffer.Length);
+            string fileName = Encoding.ASCII.GetString(filenameBuffer, 0, bytesRead).TrimEnd('\0').Trim();
+
+
+            using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
             {
-                int bytesRead;
+                bytesRead = 0;
                 byte[] buffer = new byte[1024];
 
                 while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)

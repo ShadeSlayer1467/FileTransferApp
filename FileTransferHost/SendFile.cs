@@ -17,9 +17,9 @@ namespace FileTransferHost
             Console.WriteLine("Starting file sender\n");
 
             Computer[] computers = {
-                new Computer("RGBDesk", "172.20.10.10", 59666),
-                new Computer("OmenLap", "172.20.10.6", 59666)
-            };
+            new Computer("RGBDesk", "172.20.10.10", 59666),
+            new Computer("OmenLap", "172.20.10.6", 59666)
+        };
 
             Console.WriteLine("Choose a computer to send a file to:");
             for (int i = 0; i < computers.Length; i++)
@@ -35,6 +35,7 @@ namespace FileTransferHost
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
+                string fileName = Path.GetFileName(filePath);
 
                 TcpClient client = new TcpClient();
                 client.Connect(IPAddress.Parse(chosenComputer.IP), chosenComputer.Port);
@@ -43,6 +44,11 @@ namespace FileTransferHost
 
                 NetworkStream stream = client.GetStream();
 
+                // First, send the name of the file
+                byte[] fileNameBytes = Encoding.ASCII.GetBytes(fileName + Environment.NewLine);
+                stream.Write(fileNameBytes, 0, fileNameBytes.Length);
+
+                // Then, send the contents of the file
                 using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
                     int bytesRead;
@@ -65,15 +71,15 @@ namespace FileTransferHost
             }
         }
     }
-    /*
-    In this example, there are two buttons on the form: "Select File" and "Send File". The 
-    selectFileButton_Click method is called when the "Select File" button is clicked, and it 
-    opens a file dialog to allow the user to select a file to send. The sendFileButton_Click 
-    method is called when the "Send File" button is clicked, and it sends the selected file to the 
-    remote computer using the TCP protocol.
-    
-    You'll need to replace <Remote Computer IP Address> and <Remote Computer Port> with 
-    the actual IP address and port of the remote computer that you want to send the files to.
-    */
 }
+/*
+In this example, there are two buttons on the form: "Select File" and "Send File". The 
+selectFileButton_Click method is called when the "Select File" button is clicked, and it 
+opens a file dialog to allow the user to select a file to send. The sendFileButton_Click 
+method is called when the "Send File" button is clicked, and it sends the selected file to the 
+remote computer using the TCP protocol.
+
+You'll need to replace <Remote Computer IP Address> and <Remote Computer Port> with 
+the actual IP address and port of the remote computer that you want to send the files to.
+*/
 

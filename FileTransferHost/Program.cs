@@ -22,7 +22,17 @@ namespace FileTransferHost
             }
             else if (choice == 2)
             {
-                ReceiveFile.Receive(null);
+                while (true)
+                {
+                    ReceiveFile.Receive(null);
+
+                    Console.WriteLine("ESC to stop, Enter to continue");
+                    ConsoleKeyInfo cki = Console.ReadKey();
+                    if (cki.Key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
             }
             else
             {

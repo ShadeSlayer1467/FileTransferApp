@@ -13,3 +13,53 @@ Now write me a C# "SendFile" class with the same "Computer" Objects as before th
 
 
 Now write a "Main" function to put these together as if they are in one solution and both computer have the program and one needs to choose to recieve, and the other needs to choose to send
+
+
+
+Modify "Console.WriteLine("Enter the file path:"); string filePath = Console.ReadLine();" to open a file explorer window to select a file
+
+
+
+how to fix "No connection could be made because the target machine actively refused it" error
+
+
+
+
+how would i modify "ReceiveFile" to make sure it has the same file name and file type as the incoming file?
+
+
+
+modify the following C# code "class SendFile..." so that it sends the name of the file first then the rest of it
+
+
+
+modify the following C# code so that it adds a new line character after the file name "...
+byte[] fileNameBytes = Encoding.ASCII.GetBytes(fileName); 
+stream.Write(fileNameBytes, 0, fileNameBytes.Length);
+ ... "
+
+
+
+modify the following C# code to wait for the "esc" keyboard press "while(true)
+                    ReceiveFile.Receive(null);"
+
+
+
+
+modify the following C# code to set the filename to the first line from the file "...
+TcpClient client = listener.AcceptTcpClient();
+            NetworkStream stream = client.GetStream();
+
+            Console.WriteLine("Receiving file");
+
+            using (FileStream fileStream = new FileStream("received_file.txt", FileMode.Create, FileAccess.Write))
+            {
+                int bytesRead;
+                byte[] buffer = new byte[1024];
+
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    fileStream.Write(buffer, 0, bytesRead);
+                }
+            }
+..."
