@@ -27,12 +27,18 @@ namespace FileTransferHost
             NetworkStream stream = client.GetStream();
 
             IPEndPoint sender = (IPEndPoint)client.Client.RemoteEndPoint;
+
             string senderIP = sender.Address.ToString();
+            int senderPort = sender.Port;
+
+            Console.WriteLine("Received file from: " + senderIP + ":" + senderPort);
+
 
             Console.WriteLine("Receiving file: ");
 
             byte[] filenameBuffer = new byte[1024];
             int bytesRead = stream.Read(filenameBuffer, 0, filenameBuffer.Length);
+            Console.WriteLine("First Stuff: -----------\n" + Encoding.ASCII.GetString(filenameBuffer, 0, bytesRead) + "\n---------------");
             string fileName = Encoding.ASCII.GetString(filenameBuffer, 0, bytesRead).TrimEnd('\0');
             fileName = (fileName.Split('\r'))[0];
 

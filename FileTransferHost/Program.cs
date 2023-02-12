@@ -27,16 +27,17 @@ namespace FileTransferHost
                 {
                     ReceiveFile.Receive(59666, null);
 
-                    Console.WriteLine("ESC to stop, Enter to continue");
-                    ConsoleKeyInfo cki = Console.ReadKey();
-                    if (cki.Key == ConsoleKey.Escape)
-                    {
-                        break;
-                    }
                 }
                 else
                 {
                     Console.WriteLine("Invalid choice");
+                }
+
+                Console.WriteLine("ESC to stop, Enter to continue");
+                ConsoleKeyInfo cki = Console.ReadKey();
+                if (cki.Key == ConsoleKey.Escape)
+                {
+                    break;
                 }
             }
         }

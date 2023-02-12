@@ -73,7 +73,7 @@ namespace FileTransferHost
                     }
                 }
 
-                Console.WriteLine("File sent successfully");
+                Console.WriteLine("File sent successfully\n\n");
 
                 stream.Close();
                 client.Close();
