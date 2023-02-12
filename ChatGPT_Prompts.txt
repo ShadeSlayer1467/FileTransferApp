@@ -63,3 +63,23 @@ TcpClient client = listener.AcceptTcpClient();
                 }
             }
 ..."
+
+
+modify the above to trim all whitespace as well
+
+
+Edit the following C# code so that it opens a file dialog to ask where you want to save the file "byte[] filenameBuffer = new byte[1024];
+            int bytesRead = stream.Read(filenameBuffer, 0, filenameBuffer.Length);
+
+            using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            {
+                bytesRead = 0;
+                byte[] buffer = new byte[1024];
+
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    fileStream.Write(buffer, 0, bytesRead);
+                }
+            }"
+
+

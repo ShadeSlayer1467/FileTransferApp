@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,40 +34,44 @@ namespace FileTransferHost
                 new Computer("OmenLap", "172.20.10.6", 59666)
             };
 
-            Console.WriteLine("Choose a computer to receive a file from:");
-            for (int i = 0; i < computers.Length; i++)
-            {
-                Console.WriteLine($"{i + 1}: {computers[i].Name}");
-            }
-
-            int selectedComputer = int.Parse(Console.ReadLine()) - 1;
-            Computer chosenComputer = computers[selectedComputer];
-
-            TcpListener listener = new TcpListener(IPAddress.Any, chosenComputer.Port);
+            TcpListener listener = new TcpListener(IPAddress.Any, 59666);
             listener.Start();
 
-            Console.WriteLine("\nWaiting for file");
+            Console.WriteLine("Waiting for file");
 
             TcpClient client = listener.AcceptTcpClient();
             NetworkStream stream = client.GetStream();
+
+            IPEndPoint sender = (IPEndPoint)client.Client.RemoteEndPoint;
+            string senderIP = sender.Address.ToString();
 
             Console.WriteLine("Receiving file: ");
 
             byte[] filenameBuffer = new byte[1024];
             int bytesRead = stream.Read(filenameBuffer, 0, filenameBuffer.Length);
-            string fileName = Encoding.ASCII.GetString(filenameBuffer, 0, bytesRead);
+            string fileName = Encoding.ASCII.GetString(filenameBuffer, 0, bytesRead).TrimEnd('\0');
             fileName = (fileName.Split('\r'))[0];
 
-            Console.WriteLine("\"" + fileName + "\"");
+            //Console.WriteLine("\"" + fileName + "\"");
 
-            using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                bytesRead = 0;
-                byte[] buffer = new byte[1024];
+                saveFileDialog.Filter = "All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.FileName = fileName;
 
-                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    fileStream.Write(buffer, 0, bytesRead);
+                    using (FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write))
+                    {
+                        bytesRead = 0;
+                        byte[] buffer = new byte[1024];
+
+                        while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            fileStream.Write(buffer, 0, bytesRead);
+                        }
+                    }
                 }
             }
 
