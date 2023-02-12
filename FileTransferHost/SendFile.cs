@@ -12,6 +12,19 @@ namespace FileTransferHost
 {
     class SendFile
     {
+        class Computer
+        {
+            public string Name { get; set; }
+            public string IP { get; set; }
+            public int Port { get; set; }
+
+            public Computer(string name, string ip, int port)
+            {
+                Name = name;
+                IP = ip;
+                Port = port;
+            }
+        }
         public static void Send(string[] args)
         {
             Console.WriteLine("Starting file sender\n");

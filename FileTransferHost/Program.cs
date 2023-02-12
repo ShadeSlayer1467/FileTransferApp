@@ -25,7 +25,7 @@ namespace FileTransferHost
                 }
                 else if (choice == 2)
                 {
-                    ReceiveFile.Receive(null);
+                    ReceiveFile.Receive(59666, null);
 
                     Console.WriteLine("ESC to stop, Enter to continue");
                     ConsoleKeyInfo cki = Console.ReadKey();

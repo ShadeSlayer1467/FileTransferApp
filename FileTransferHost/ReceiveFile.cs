@@ -10,31 +10,15 @@ using System.Threading.Tasks;
 
 namespace FileTransferHost
 {
-    class Computer
-    {
-        public string Name { get; set; }
-        public string IP { get; set; }
-        public int Port { get; set; }
-
-        public Computer(string name, string ip, int port)
-        {
-            Name = name;
-            IP = ip;
-            Port = port;
-        }
-    }
     class ReceiveFile
     {
-        public static void Receive(string[] args)
+        static int Port { get; set; }
+        public static void Receive(int port, string[] args)
         {
+            Port = port;
             Console.WriteLine("Starting file receiver\n");
 
-            Computer[] computers = {
-                new Computer("RGBDesk", "172.20.10.10", 59666),
-                new Computer("OmenLap", "172.20.10.6", 59666)
-            };
-
-            TcpListener listener = new TcpListener(IPAddress.Any, 59666);
+            TcpListener listener = new TcpListener(IPAddress.Any, Port);
             listener.Start();
 
             Console.WriteLine("Waiting for file");
