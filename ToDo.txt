@@ -1,0 +1,6 @@
+Convert Computer obj to read in from a db (either text file or json)
+    -Text would be easier for users to use. Not too hard to extract data from
+    -json is better at storing data
+
+make install file to set up firewall access
+changing firewall? better learn more about security
