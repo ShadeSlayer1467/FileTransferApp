@@ -53,6 +53,13 @@ namespace FileTransferHost
                 TcpClient client = new TcpClient();
                 client.Connect(IPAddress.Parse(chosenComputer.IP), chosenComputer.Port);
 
+                IPEndPoint sender = (IPEndPoint)client.Client.RemoteEndPoint;
+
+                string senderIP = sender.Address.ToString();
+                int senderPort = sender.Port;
+
+                Console.WriteLine("Sending file to: " + senderIP + ":" + senderPort);
+
                 Console.WriteLine("Sending file");
 
                 NetworkStream stream = client.GetStream();

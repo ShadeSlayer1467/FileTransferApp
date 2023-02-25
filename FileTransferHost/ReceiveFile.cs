@@ -42,7 +42,7 @@ namespace FileTransferHost
             string fileName = Encoding.ASCII.GetString(filenameBuffer, 0, bytesRead).TrimEnd('\0');
             fileName = (fileName.Split('\r'))[0];
 
-            //Console.WriteLine("\"" + fileName + "\"");
+            Console.WriteLine("Filename: \"" + fileName + "\"");
 
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
